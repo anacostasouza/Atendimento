@@ -4,9 +4,38 @@ function formatarData(timestamp) {
     return data.toLocaleDateString('pt-BR');
 }
 
+function carregarAtendentes() {
+    let atendentes = JSON.parse(localStorage.getItem('atendentes') || '[]');
+    let select = document.getElementById("select-atendente");
+    
+    select.innerHTML = "<option value=''>Todos</option>";
+    atendentes.forEach(atendente => {
+        let option = document.createElement("option");
+        option.value = atendente.nome;
+        option.textContent = atendente.nome;
+        select.appendChild(option);
+    });
+}
+
+function calcularEstatisticas(atendimentos) {
+    const total = atendimentos.length;
+    let somaTempos = 0;
+
+    atendimentos.forEach(atendimento => {
+        const tempoTotal = (atendimento.tempoFim - atendimento.tempoInicio) / 60000; // em minutos
+        somaTempos += tempoTotal;
+    });
+
+    const media = total > 0 ? (somaTempos / total).toFixed(1) : 0;
+
+    document.getElementById('media-tempo').textContent = media;
+    document.getElementById('total-atendimentos').textContent = total;
+}
+
 function filtrarAtendimentos() {
     const dataInicial = document.getElementById('data-inicial').value;
     const dataFinal = document.getElementById('data-final').value;
+    const atendenteSelected = document.getElementById('select-atendente').value;
     
     let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
     
@@ -19,13 +48,19 @@ function filtrarAtendimentos() {
         const timestampFinal = new Date(dataFinal).setHours(23, 59, 59, 999);
         atendimentos = atendimentos.filter(a => a.tempoFim <= timestampFinal);
     }
+
+    if (atendenteSelected) {
+        atendimentos = atendimentos.filter(a => a.atendente === atendenteSelected);
+    }
     
+    calcularEstatisticas(atendimentos);
     exibirAtendimentos(atendimentos);
 }
 
 function limparFiltros() {
     document.getElementById('data-inicial').value = '';
     document.getElementById('data-final').value = '';
+    document.getElementById('select-atendente').value = '';
     carregarRelatorio();
 }
 
@@ -48,7 +83,11 @@ function exibirAtendimentos(atendimentos) {
 
 function carregarRelatorio() {
     let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
+    calcularEstatisticas(atendimentos);
     exibirAtendimentos(atendimentos);
 }
 
-window.onload = carregarRelatorio;
+window.onload = () => {
+    carregarAtendentes();
+    carregarRelatorio();
+};

@@ -7,10 +7,12 @@ function cadastrarCliente() {
     }
     let servico = document.getElementById("tipo-servico").value;
     let prioridade = document.getElementById("prioridade").value;
+
     let tempoInicio = new Date().getTime();
 
     let cliente = { nome, servico, prioridade, tempoInicio };
     let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+    
     clientes.push(cliente);
     localStorage.setItem('clientes', JSON.stringify(clientes));
 
@@ -27,7 +29,8 @@ function atualizarTabela() {
         let tempoEspera = Math.floor((new Date().getTime() - cliente.tempoInicio) / 60000);
         let newRow = tabela.insertRow();
         if (cliente.prioridade === 'Alta') {
-            newRow.style.backgroundColor = '#ffcdd2';
+            newRow.style.backgroundColor = '#ff3d00';
+            newRow.style.fontWeight = 'bold'
         }
         newRow.innerHTML = `
             <td>${cliente.nome}</td>

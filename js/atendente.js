@@ -8,7 +8,7 @@ function carregarAtendentes() {
     select.innerHTML = "<option value=''>Selecione um atendente</option>";
     
     atendentes.forEach(atendente => {
-        // Adiciona à tabela
+    
         let row = tabela.insertRow();
         row.innerHTML = `
             <td>
@@ -21,7 +21,7 @@ function carregarAtendentes() {
                 <button class="btn btn-sm btn-danger" onclick="excluirAtendente('${atendente.id}')">Excluir</button>
             </td>`;
             
-        // Adiciona ao select
+      
         let option = document.createElement("option");
         option.value = atendente.id;
         option.textContent = atendente.nome;

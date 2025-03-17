@@ -9,7 +9,7 @@ function carregarAtendentes() {
     let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
     let select = document.getElementById("select-atendente");
     
-    // Get unique attendant names from history
+   
     let todosAtendentes = new Set();
     atendimentos.forEach(atendimento => {
         if (atendimento.atendente) {
@@ -99,17 +99,17 @@ function carregarRelatorio() {
 function exportarParaExcel() {
     let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
     
-    // Add BOM for Excel to recognize UTF-8
+    
     let csvContent = '\ufeff';
     
-    // Headers
+    
     csvContent += "Nome;Serviço;Prioridade;Tempo Total (min);Atendente;Data\n";
     
     atendimentos.forEach(atendimento => {
         let tempoTotal = Math.floor((atendimento.tempoFim - atendimento.tempoInicio) / 60000);
         let data = formatarData(atendimento.tempoFim);
         
-        // Use semicolon as separator and wrap fields in quotes to handle special characters
+       
         let linha = [
             `"${atendimento.nome}"`,
             `"${atendimento.servico}"`,

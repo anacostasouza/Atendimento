@@ -49,16 +49,42 @@
             let tabela = document.getElementById("tabela-clientes").getElementsByTagName("tbody")[0];
             tabela.innerHTML = "";
 
-            let clientes = [
-                { nome: "João", servico: "Impressão", prioridade: "Normal", tempo: "05:00" },
-                { nome: "Maria", servico: "Criação", prioridade: "Alta", tempo: "02:30" }
-            ];
+            let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
 
             clientes.forEach(cliente => {
+                let tempoEspera = Math.floor((new Date().getTime() - cliente.tempoInicio) / 60000);
                 let newRow = tabela.insertRow();
-                newRow.innerHTML = `<td>${cliente.nome}</td><td>${cliente.servico}</td><td>${cliente.prioridade}</td><td>${cliente.tempo}</td><td><button class='btn btn-success' onclick='chamarCliente("${cliente.nome}")'>Chamar</button></td>`;    
+                newRow.innerHTML = `
+                    <td>${cliente.nome}</td>
+                    <td>${cliente.servico}</td>
+                    <td>${cliente.prioridade}</td>
+                    <td>${tempoEspera} min</td>
+                    <td><button class='btn btn-success' onclick='chamarCliente("${cliente.nome}")'>Chamar</button></td>`;    
             });
         }
+
+        function chamarCliente(nome) {
+            if (confirm(`Chamar cliente ${nome}?`)) {
+                let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+                let cliente = clientes.find(c => c.nome === nome);
+                let atendimento = {
+                    ...cliente,
+                    tempoFim: new Date().getTime(),
+                    atendente: document.getElementById("nome-atendente").value
+                };
+                
+                let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
+                atendimentos.push(atendimento);
+                localStorage.setItem('atendimentos', JSON.stringify(atendimentos));
+                
+                clientes = clientes.filter(c => c.nome !== nome);
+                localStorage.setItem('clientes', JSON.stringify(clientes));
+                
+                carregarClientes();
+            }
+        }
+
+        setInterval(carregarClientes, 60000);
 
     </script>
 </body>

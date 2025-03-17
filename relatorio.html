@@ -86,44 +86,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
-        function cadastrarCliente() {
-            let nome = document.getElementById("nome-cliente").value;
-            let servico = document.getElementById("tipo-servico").value;
-            let prioridade = document.getElementById("prioridade").value;
-            let tempoInicio = new Date().toLocaleTimeString();
-
+        function carregarRelatorio() {
+            let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
             let tabela = document.getElementById("tabela-fila").getElementsByTagName("tbody")[0];
-            let newRow = tabela.insertRow();
-            newRow.innerHTML = `<td>${nome}</td><td>${servico}</td><td>${prioridade}</td><td data-inicio="${tempoInicio}">${tempoInicio}</td><td><button class='btn btn-success' onclick='finalizarAtendimento(this)'>Finalizar</button></td>`;
-        }
-        
-        function finalizarAtendimento(button) {
-            let row = button.parentNode.parentNode;
-            let nome = row.cells[0].innerText;
-            let servico = row.cells[1].innerText;
-            let prioridade = row.cells[2].innerText;
-            let tempoInicio = row.cells[3].getAttribute("data-inicio");
-            let tempoFim = new Date().toLocaleTimeString();
-            let tempoTotal = calcularTempo(tempoInicio, tempoFim);
+            tabela.innerHTML = '';
             
-            let relatorio = localStorage.getItem("relatorio") ? JSON.parse(localStorage.getItem("relatorio")) : [];
-            relatorio.push({ nome, servico, prioridade, tempoInicio, tempoFim, tempoTotal });
-            localStorage.setItem("relatorio", JSON.stringify(relatorio));
-            
-            row.remove();
+            atendimentos.forEach(atendimento => {
+                let tempoTotal = Math.floor((atendimento.tempoFim - atendimento.tempoInicio) / 60000);
+                let newRow = tabela.insertRow();
+                newRow.innerHTML = `
+                    <td>${atendimento.nome}</td>
+                    <td>${atendimento.servico}</td>
+                    <td>${atendimento.prioridade}</td>
+                    <td>${tempoTotal} min</td>
+                    <td>${atendimento.atendente}</td>`;
+            });
         }
-        
-        function calcularTempo(inicio, fim) {
-            let [h1, m1, s1] = inicio.split(":").map(Number);
-            let [h2, m2, s2] = fim.split(":").map(Number);
-            let inicioSegundos = h1 * 3600 + m1 * 60 + s1;
-            let fimSegundos = h2 * 3600 + m2 * 60 + s2;
-            let diferenca = fimSegundos - inicioSegundos;
-            let horas = Math.floor(diferenca / 3600);
-            let minutos = Math.floor((diferenca % 3600) / 60);
-            let segundos = diferenca % 60;
-            return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-        }
+
+        window.onload = carregarRelatorio;
     </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Relatório de Atendimentos</h2>
+        
+        <table class="table table-striped" id="tabela-fila">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Serviço</th>
+                    <th>Prioridade</th>
+                    <th>Tempo Total</th>
+                    <th>Atendente</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+        <a href="index.html" class="btn btn-primary w-100 mt-3">Voltar para Início</a>
+    </div>
 </body>
 </html>

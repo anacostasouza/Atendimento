@@ -1,4 +1,3 @@
-
 :root {
     --main-foreground: #ffffff;
     --main-background: #343434;
@@ -139,4 +138,13 @@ option {
 
 .table td {
     vertical-align: middle;
+}
+
+.table>:not(caption)>*>* {
+    padding: .5rem .5rem;
+    color: var(--text-primary);
+    background-color: var(--main-background);
+    border-bottom-width: 1px;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 9999px rgba(52, 52, 52, 0.2);
 }

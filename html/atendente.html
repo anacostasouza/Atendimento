@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,42 +13,84 @@
 
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Área do Atendente</h2>
+        <h2 class="text-center">Gerenciamento de Atendentes</h2>
 
-        <div class="mb-3">
-            <label class="form-label">Nome do Atendente:</label>
-            <input type="text" class="form-control" id="nome-atendente" placeholder="Digite seu nome">
+        <!-- Cadastro de Atendente -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Cadastro de Atendente</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Nome do Atendente:</label>
+                    <input type="text" class="form-control" id="nome-novo-atendente" placeholder="Digite o nome do atendente">
+                </div>
+                <button class="btn btn-primary" onclick="cadastrarAtendente()">Cadastrar Novo Atendente</button>
+            </div>
         </div>
 
-        <button class="btn btn-primary w-100" onclick="entrarAtendimento()">Entrar no Atendimento</button>
+        <!-- Lista de Atendentes -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Atendentes Cadastrados</h4>
+            </div>
+            <div class="card-body">
+                <table class="table" id="tabela-atendentes">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
-        <h4 class="text-center mt-4">Clientes Aguardando</h4>
-        <table class="table table-striped" id="tabela-clientes">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Serviço</th>
-                    <th>Prioridade</th>
-                    <th>Tempo de Espera</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <!-- Seleção de Atendente -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Entrar no Atendimento</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Selecione o Atendente:</label>
+                    <select class="form-select" id="select-atendente"></select>
+                </div>
+                <button class="btn btn-success" onclick="entrarAtendimento()">Entrar no Atendimento</button>
+            </div>
+        </div>
 
-        <h4 class="text-center mt-4">Em Atendimento</h4>
-        <table class="table table-striped" id="tabela-em-atendimento">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Serviço</th>
-                    <th>Atendente</th>
-                    <th>Tempo de Atendimento</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <!-- Área de Atendimento (inicialmente oculta) -->
+        <div id="area-atendimento" style="display: none;">
+            <h4 class="text-center mt-4">Clientes Aguardando</h4>
+            <table class="table table-striped" id="tabela-clientes">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Serviço</th>
+                        <th>Prioridade</th>
+                        <th>Tempo de Espera</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <h4 class="text-center mt-4">Em Atendimento</h4>
+            <table class="table table-striped" id="tabela-em-atendimento">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Serviço</th>
+                        <th>Atendente</th>
+                        <th>Tempo de Atendimento</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
         <a href="index.html" class="btn btn-primary w-100 mt-3">Voltar para Início</a>
     </div>

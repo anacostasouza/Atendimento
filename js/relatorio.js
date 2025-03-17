@@ -6,13 +6,22 @@ function formatarData(timestamp) {
 
 function carregarAtendentes() {
     let atendentes = JSON.parse(localStorage.getItem('atendentes') || '[]');
+    let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
     let select = document.getElementById("select-atendente");
     
+    // Get unique attendant names from history
+    let todosAtendentes = new Set();
+    atendimentos.forEach(atendimento => {
+        if (atendimento.atendente) {
+            todosAtendentes.add(atendimento.atendente);
+        }
+    });
+    
     select.innerHTML = "<option value=''>Todos</option>";
-    atendentes.forEach(atendente => {
+    Array.from(todosAtendentes).sort().forEach(nomeAtendente => {
         let option = document.createElement("option");
-        option.value = atendente.nome;
-        option.textContent = atendente.nome;
+        option.value = nomeAtendente;
+        option.textContent = nomeAtendente;
         select.appendChild(option);
     });
 }

@@ -98,12 +98,27 @@ function carregarRelatorio() {
 
 function exportarParaExcel() {
     let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
-    let csvContent = "Nome,Serviço,Prioridade,Tempo Total (min),Atendente,Data\n";
+    
+    // Add BOM for Excel to recognize UTF-8
+    let csvContent = '\ufeff';
+    
+    // Headers
+    csvContent += "Nome;Serviço;Prioridade;Tempo Total (min);Atendente;Data\n";
     
     atendimentos.forEach(atendimento => {
         let tempoTotal = Math.floor((atendimento.tempoFim - atendimento.tempoInicio) / 60000);
         let data = formatarData(atendimento.tempoFim);
-        let linha = `${atendimento.nome},${atendimento.servico},${atendimento.prioridade},${tempoTotal},${atendimento.atendente},${data}`;
+        
+        // Use semicolon as separator and wrap fields in quotes to handle special characters
+        let linha = [
+            `"${atendimento.nome}"`,
+            `"${atendimento.servico}"`,
+            `"${atendimento.prioridade}"`,
+            `"${tempoTotal}"`,
+            `"${atendimento.atendente}"`,
+            `"${data}"`
+        ].join(';');
+        
         csvContent += linha + "\n";
     });
 

@@ -34,12 +34,22 @@ function atualizarTabela() {
             <td class="tempo-espera" data-inicio="${cliente.tempoInicio}">${tempoEspera} min</td>
             <td>${cliente.servico}</td>
             <td>${cliente.prioridade}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="cancelarAtendimento('${cliente.nome}')">Cancelar</button></td>
         `;
     });
 }
 
 function atualizarTempos() {
     atualizarTabela();
+}
+
+function cancelarAtendimento(nome) {
+    if (confirm(`Deseja cancelar o atendimento de ${nome}?`)) {
+        let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+        clientes = clientes.filter(c => c.nome !== nome);
+        localStorage.setItem('clientes', JSON.stringify(clientes));
+        atualizarTabela();
+    }
 }
 
 setInterval(atualizarTempos, 60000);

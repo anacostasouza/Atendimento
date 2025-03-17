@@ -50,5 +50,10 @@ function cancelarAtendimento(nome) {
     }
 }
 
+function atualizarTempos() {
+    atualizarTabela();
+
+}
+
 setInterval(atualizarTempos, 60000);
 window.onload = atualizarTabela;

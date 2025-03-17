@@ -119,3 +119,24 @@ option {
     border-color: #f39c12;
     color: var(--main-background);
 }
+
+/* Table action buttons styling */
+.table .btn {
+    margin: 0 3px;
+    min-width: 70px;
+}
+
+.table .btn-warning {
+    background-color: #f39c12;
+    border-color: #f39c12;
+    color: #fff;
+}
+
+.table .btn-danger {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.table td {
+    vertical-align: middle;
+}

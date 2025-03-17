@@ -60,14 +60,6 @@
             });
         }
 
-    function chamarCliente(nome) {
-            if (confirm(`Chamar cliente ${nome}?`)) {
-                let row = document.querySelector(`tr:has(td:contains('${nome}'))`);
-                if (row) {
-                    row.remove();
-                }
-            }
-        }
     </script>
 </body>
 </html>

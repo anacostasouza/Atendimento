@@ -1,6 +1,10 @@
 
 function cadastrarCliente() {
-    let nome = document.getElementById("nome-cliente").value;
+    let nome = document.getElementById("nome-cliente").value.trim();
+    if (!nome) {
+        alert('Por favor, preencha o nome do cliente');
+        return;
+    }
     let servico = document.getElementById("tipo-servico").value;
     let prioridade = document.getElementById("prioridade").value;
     let tempoInicio = new Date().getTime();

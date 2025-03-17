@@ -87,6 +87,28 @@ function carregarRelatorio() {
     exibirAtendimentos(atendimentos);
 }
 
+function exportarParaExcel() {
+    let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
+    let csvContent = "Nome,Serviço,Prioridade,Tempo Total (min),Atendente,Data\n";
+    
+    atendimentos.forEach(atendimento => {
+        let tempoTotal = Math.floor((atendimento.tempoFim - atendimento.tempoInicio) / 60000);
+        let data = formatarData(atendimento.tempoFim);
+        let linha = `${atendimento.nome},${atendimento.servico},${atendimento.prioridade},${tempoTotal},${atendimento.atendente},${data}`;
+        csvContent += linha + "\n";
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "relatorio_atendimentos.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 window.onload = () => {
     carregarAtendentes();
     carregarRelatorio();

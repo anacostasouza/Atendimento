@@ -73,6 +73,10 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 .form-control::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }

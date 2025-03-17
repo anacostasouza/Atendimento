@@ -22,7 +22,15 @@ function atualizarTabela() {
     clientes.forEach(cliente => {
         let tempoEspera = Math.floor((new Date().getTime() - cliente.tempoInicio) / 60000);
         let newRow = tabela.insertRow();
-        newRow.innerHTML = `<td>${cliente.nome}</td><td class="tempo-espera" data-inicio="${cliente.tempoInicio}">${tempoEspera} min</td>`;
+        if (cliente.prioridade === 'Alta') {
+            newRow.style.backgroundColor = '#ffcdd2';
+        }
+        newRow.innerHTML = `
+            <td>${cliente.nome}</td>
+            <td class="tempo-espera" data-inicio="${cliente.tempoInicio}">${tempoEspera} min</td>
+            <td>${cliente.servico}</td>
+            <td>${cliente.prioridade}</td>
+        `;
     });
 }
 

@@ -5,22 +5,24 @@
     --accent-color: #2ecc71;
     --button-background: #2ecc71;
     --button-foreground: #FFFFFF;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
 }
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--main-background);
-    color: var(--main-foreground);
+    color: var(--text-primary);
     padding: 20px;
 }
 
 .container {
     max-width: 800px;
-    background: var(--main-background-opacity-20);
+    background: rgba(52, 52, 52, 0.2);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    border: 1px solid var(--main-foreground-opacity-20);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary {
@@ -32,40 +34,88 @@ body {
 .btn-primary:hover {
     background-color: #28b162;
     border-color: #28b162;
+    color: var(--button-foreground);
 }
 
 .btn-secondary {
     background-color: var(--main-background);
-    border-color: var(--main-foreground-opacity-20);
-    color: var(--main-foreground);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
+
+.btn-success {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--button-foreground);
 }
 
 .table {
-    color: var(--main-foreground);
+    color: var(--text-primary);
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: var(--main-background-opacity-20);
+    background-color: rgba(52, 52, 52, 0.2);
+}
+
+.table thead th {
+    color: var(--accent-color);
 }
 
 .form-control, .form-select {
-    background-color: var(--main-background-opacity-20);
-    border-color: var(--main-foreground-opacity-20);
-    color: var(--main-foreground);
+    background-color: rgba(52, 52, 52, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
 }
 
 .form-control:focus, .form-select:focus {
-    background-color: var(--main-background-opacity-30);
+    background-color: rgba(52, 52, 52, 0.3);
     border-color: var(--accent-color);
-    color: var(--main-foreground);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .card {
-    background-color: var(--main-background-opacity-20);
-    border-color: var(--main-foreground-opacity-20);
-    color: var(--main-foreground);
+    background-color: rgba(52, 52, 52, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
 }
 
-h2, h4 {
+.card-header {
+    background-color: rgba(52, 52, 52, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h2, h4, .card-title {
     color: var(--accent-color);
+}
+
+.form-label {
+    color: var(--text-secondary);
+}
+
+option {
+    background-color: var(--main-background);
+    color: var(--text-primary);
+}
+
+.btn-info {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--button-foreground);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: var(--button-foreground);
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    border-color: #f39c12;
+    color: var(--main-background);
 }

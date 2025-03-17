@@ -1,4 +1,3 @@
-
 function cadastrarCliente() {
     let nome = document.getElementById("nome-cliente").value.trim();
     if (!nome) {
@@ -12,7 +11,7 @@ function cadastrarCliente() {
 
     let cliente = { nome, servico, prioridade, tempoInicio };
     let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-    
+
     clientes.push(cliente);
     localStorage.setItem('clientes', JSON.stringify(clientes));
 
@@ -24,13 +23,13 @@ function atualizarTabela() {
     let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
     let tabela = document.getElementById("tabela-fila").getElementsByTagName("tbody")[0];
     tabela.innerHTML = '';
-    
+
     clientes.forEach(cliente => {
         let tempoEspera = Math.floor((new Date().getTime() - cliente.tempoInicio) / 60000);
         let newRow = tabela.insertRow();
         if (cliente.prioridade === 'Alta') {
             newRow.style.backgroundColor = '#ff3d00';
-            newRow.style.fontWeight = 'bold'
+            newRow.style.fontWeight = 'bold';
         }
         newRow.innerHTML = `
             <td>${cliente.nome}</td>
@@ -40,10 +39,6 @@ function atualizarTabela() {
             <td><button class="btn btn-danger btn-sm" onclick="cancelarAtendimento('${cliente.nome}')">Cancelar</button></td>
         `;
     });
-}
-
-function atualizarTempos() {
-    atualizarTabela();
 }
 
 function cancelarAtendimento(nome) {

@@ -33,6 +33,21 @@
             <tbody>
             </tbody>
         </table>
+
+        <h4 class="text-center mt-4">Em Atendimento</h4>
+        <table class="table table-striped" id="tabela-em-atendimento">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Serviço</th>
+                    <th>Atendente</th>
+                    <th>Tempo de Atendimento</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -67,25 +82,69 @@
             if (confirm(`Chamar cliente ${nome}?`)) {
                 let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
                 let cliente = clientes.find(c => c.nome === nome);
-                let atendimento = {
-                    ...cliente,
-                    tempoFim: new Date().getTime(),
-                    atendente: document.getElementById("nome-atendente").value
-                };
                 
-                let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
-                atendimentos.push(atendimento);
-                localStorage.setItem('atendimentos', JSON.stringify(atendimentos));
+                let emAtendimento = JSON.parse(localStorage.getItem('emAtendimento') || '[]');
+                emAtendimento.push({
+                    ...cliente,
+                    inicioAtendimento: new Date().getTime(),
+                    atendente: document.getElementById("nome-atendente").value
+                });
+                localStorage.setItem('emAtendimento', JSON.stringify(emAtendimento));
                 
                 clientes = clientes.filter(c => c.nome !== nome);
                 localStorage.setItem('clientes', JSON.stringify(clientes));
                 
                 carregarClientes();
+                carregarEmAtendimento();
             }
         }
 
-        setInterval(carregarClientes, 60000);
+        function finalizarAtendimento(nome) {
+            if (confirm(`Finalizar atendimento de ${nome}?`)) {
+                let emAtendimento = JSON.parse(localStorage.getItem('emAtendimento') || '[]');
+                let atendimento = emAtendimento.find(a => a.nome === nome);
+                
+                let atendimentos = JSON.parse(localStorage.getItem('atendimentos') || '[]');
+                atendimentos.push({
+                    ...atendimento,
+                    tempoFim: new Date().getTime()
+                });
+                localStorage.setItem('atendimentos', JSON.stringify(atendimentos));
+                
+                emAtendimento = emAtendimento.filter(a => a.nome !== nome);
+                localStorage.setItem('emAtendimento', JSON.stringify(emAtendimento));
+                
+                carregarEmAtendimento();
+            }
+        }
 
+        function carregarEmAtendimento() {
+            let tabela = document.getElementById("tabela-em-atendimento").getElementsByTagName("tbody")[0];
+            tabela.innerHTML = "";
+
+            let emAtendimento = JSON.parse(localStorage.getItem('emAtendimento') || '[]');
+
+            emAtendimento.forEach(atendimento => {
+                let tempoAtendimento = Math.floor((new Date().getTime() - atendimento.inicioAtendimento) / 60000);
+                let newRow = tabela.insertRow();
+                newRow.innerHTML = `
+                    <td>${atendimento.nome}</td>
+                    <td>${atendimento.servico}</td>
+                    <td>${atendimento.atendente}</td>
+                    <td>${tempoAtendimento} min</td>
+                    <td><button class='btn btn-danger' onclick='finalizarAtendimento("${atendimento.nome}")'>Finalizar</button></td>`;
+            });
+        }
+
+        setInterval(() => {
+            carregarClientes();
+            carregarEmAtendimento();
+        }, 60000);
+
+        window.onload = () => {
+            carregarClientes();
+            carregarEmAtendimento();
+        };
     </script>
 </body>
 </html>

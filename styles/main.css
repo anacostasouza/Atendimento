@@ -1,25 +1,71 @@
 
+:root {
+    --main-foreground: #ffffff;
+    --main-background: #343434;
+    --accent-color: #2ecc71;
+    --button-background: #2ecc71;
+    --button-foreground: #FFFFFF;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--main-background);
+    color: var(--main-foreground);
     padding: 20px;
 }
 
 .container {
-    max-width: 600px;
-    background: white;
+    max-width: 800px;
+    background: var(--main-background-opacity-20);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: 1px solid var(--main-foreground-opacity-20);
 }
 
-#loading {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.7);
-    z-index: 1000;
+.btn-primary {
+    background-color: var(--button-background);
+    border-color: var(--button-background);
+    color: var(--button-foreground);
+}
+
+.btn-primary:hover {
+    background-color: #28b162;
+    border-color: #28b162;
+}
+
+.btn-secondary {
+    background-color: var(--main-background);
+    border-color: var(--main-foreground-opacity-20);
+    color: var(--main-foreground);
+}
+
+.table {
+    color: var(--main-foreground);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--main-background-opacity-20);
+}
+
+.form-control, .form-select {
+    background-color: var(--main-background-opacity-20);
+    border-color: var(--main-foreground-opacity-20);
+    color: var(--main-foreground);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--main-background-opacity-30);
+    border-color: var(--accent-color);
+    color: var(--main-foreground);
+}
+
+.card {
+    background-color: var(--main-background-opacity-20);
+    border-color: var(--main-foreground-opacity-20);
+    color: var(--main-foreground);
+}
+
+h2, h4 {
+    color: var(--accent-color);
 }

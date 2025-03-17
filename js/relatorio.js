@@ -22,7 +22,7 @@ function calcularEstatisticas(atendimentos) {
     let somaTempos = 0;
 
     atendimentos.forEach(atendimento => {
-        const tempoTotal = (atendimento.tempoFim - atendimento.tempoInicio) / 60000; // em minutos
+        const tempoTotal = (atendimento.tempoFim - atendimento.tempoInicio) / 60000; 
         somaTempos += tempoTotal;
     });
 

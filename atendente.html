@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Atendente</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Área do Atendente</h2>
+
+        <div class="mb-3">
+            <label class="form-label">Nome do Atendente:</label>
+            <input type="text" class="form-control" id="nome-atendente" placeholder="Digite seu nome">
+        </div>
+
+        <button class="btn btn-primary w-100" onclick="entrarAtendimento()">Entrar no Atendimento</button>
+
+        <h4 class="text-center mt-4">Clientes Aguardando</h4>
+        <table class="table table-striped" id="tabela-clientes">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Serviço</th>
+                    <th>Prioridade</th>
+                    <th>Tempo de Espera</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function entrarAtendimento() {
+            let nomeAtendente = document.getElementById("nome-atendente").value;
+            if (nomeAtendente.trim() === "") {
+                alert("Por favor, digite seu nome para entrar no atendimento.");
+                return;
+            }
+            carregarClientes();
+        }
+
+        function carregarClientes() {
+            let tabela = document.getElementById("tabela-clientes").getElementsByTagName("tbody")[0];
+            tabela.innerHTML = "";
+
+            let clientes = [
+                { nome: "João", servico: "Impressão", prioridade: "Normal", tempo: "05:00" },
+                { nome: "Maria", servico: "Criação", prioridade: "Alta", tempo: "02:30" }
+            ];
+
+            clientes.forEach(cliente => {
+                let newRow = tabela.insertRow();
+                newRow.innerHTML = `<td>${cliente.nome}</td><td>${cliente.servico}</td><td>${cliente.prioridade}</td><td>${cliente.tempo}</td><td><button class='btn btn-success' onclick='chamarCliente("${cliente.nome}")'>Chamar</button></td>`;    
+            });
+        }
+
+    </script>
+</body>
+</html>

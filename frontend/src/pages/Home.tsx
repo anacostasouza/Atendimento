@@ -3,7 +3,7 @@ import './Home.css'
 import { useEffect, useRef, useState } from 'react'
 import { EditIcon } from '../assets/icons/editIcon'
 import { TrashIcon } from '../assets/icons/trashIcon'
-import { api } from '../services/api'
+import { api } from '../services/api.ts'
 
 interface Usuario {
   id: string

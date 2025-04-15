@@ -1,0 +1,13 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /clientes/{clienteId} {
+      allow read, write: if request.auth != null && request.auth.uid == clienteId;
+    }
+    match /atendentes/{atendenteId} {
+      allow read, write: if request.auth != null && request.auth.uid == atendenteId;
+    }
+    match /atendimentos/{atendimentoId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

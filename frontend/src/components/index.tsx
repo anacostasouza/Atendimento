@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import './style.css'
 import EditIcon from '../../assets/icons/edit.svg'
 import TrashIcon from '../../assets/icons/trash.svg'
-import { api } from '../../services/api.js'
+import { api } from '../services/api.ts'
 
 function Home() {
   interface User {

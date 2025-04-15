@@ -16,5 +16,8 @@
     "express": "^5.1.0",
     "firebase": "^11.6.0",
     "firebase-admin": "^13.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

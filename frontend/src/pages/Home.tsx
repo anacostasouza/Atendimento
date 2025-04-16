@@ -58,29 +58,39 @@ export function Home() {
 
   return (
     <div className="container">
-      <form>
-        <h1>Cadastro de Usuários</h1>
+      <div className="left-side">
+        <h1>
+          Você imagina, a gente realiza 
+        </h1>
+        <div className='logoDesenhar'>
+        <img src='./public/' alt="Logo Desenhar" />
+        </div>
+      </div>
+  
+      <div className="right-side">
+        <h2>Cadastro de Usuários</h2>
         <input type="text" placeholder="Nome" ref={inputName} />
         <input type="text" placeholder="Email" ref={inputEmail} />
         <input type="password" placeholder="Senha" ref={inputSenha} />
         <button type="button" onClick={createUsers}>Cadastrar</button>
-      </form>
-
-      {users.map(user => (
-        <div key={user.id} className="container-table">
-          <div className="table">
-            <p>Nome: <span>{user.nome}</span></p>
-            <p>Email: <span>{user.email}</span></p>
-            <p>Senha: <span>{user.senha}</span></p>
+  
+        {users.map(user => (
+          <div key={user.id} className="container-table">
+            <div className="table">
+              <p>Nome: <span>{user.nome}</span></p>
+              <p>Email: <span>{user.email}</span></p>
+              <p>Senha: <span>{user.senha}</span></p>
+            </div>
+            <button onClick={() => updateUsers(user.id)} title="Editar usuário">
+              <EditIcon />
+            </button>
+            <button onClick={() => deleteUsers(user.id)} title="Deletar usuário">
+              <TrashIcon />
+            </button>
           </div>
-          <button onClick={() => updateUsers(user.id)} title="Editar usuário">
-            <EditIcon />
-          </button>
-          <button onClick={() => deleteUsers(user.id)} title="Deletar usuário">
-            <TrashIcon />
-          </button>
-        </div>
-      ))}
-    </div>
-  )
-}
+        ))}
+      </div>
+      </div>
+    )
+  }
+  

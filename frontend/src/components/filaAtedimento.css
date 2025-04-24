@@ -1,0 +1,104 @@
+/* FilaAtendimento.css */
+
+.fila-container {
+    font-family: Comfortaa, sans-serif;
+    background-color: #f0f2f5;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .fila-container h1 {
+    color: #a21c1f;
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: normal;
+  }
+  
+  .fila-lista {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .fila-item {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 6px;
+    border-left: 4px solid #a21c1f;
+  }
+  
+  .fila-item h3 {
+    color: #333;
+    margin: 0 0 0.5rem 0;
+    font-size: 18px;
+  }
+  
+  .fila-item p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .fila-item strong {
+    color: #a21c1f;
+  }
+  
+  .formulario {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .formulario input,
+  .formulario select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: Comfortaa, sans-serif;
+  }
+  
+  .formulario label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .formulario button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #a21c1f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: Comfortaa, sans-serif;
+  }
+  
+  .formulario button:hover {
+    background-color: #8a181b;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .fila-container {
+      padding: 1rem;
+    }
+    
+    .fila-lista,
+    .formulario {
+      padding: 1rem;
+    }
+  }

@@ -1,4 +1,4 @@
-// src/pages/Home.tsx
+
 import './Home.css'
 import { useEffect, useRef, useState } from 'react'
 import { EditIcon } from '../assets/icons/editIcon'
